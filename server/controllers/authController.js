@@ -15,7 +15,7 @@ exports.register = async (req, res) => {
         res.status(201).json({
             success: true,
             token: generateToken(user._id),
-            user: { id: user._id, username: user.username, email: user.email }
+            user: { id: user._id, username: user.username, email: user.email, role: user.role }
         });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
@@ -30,7 +30,7 @@ exports.login = async (req, res) => {
             res.json({
                 success: true,
                 token: generateToken(user._id),
-                user: { id: user._id, username: user.username, email: user.email }
+                user: { id: user._id, username: user.username, email: user.email, role: user.role }
             });
         } else {
             res.status(401).json({ success: false, message: 'Invalid email or password' });

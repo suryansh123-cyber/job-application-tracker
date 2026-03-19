@@ -1,17 +1,21 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, ListTodo, LogOut } from 'lucide-react';
+import { LayoutDashboard, ListTodo, LogOut, Briefcase } from 'lucide-react';
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const userStr = localStorage.getItem('user');
+    const user = userStr ? JSON.parse(userStr) : null;
+    const isAdmin = user?.role === 'Admin';
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
         navigate('/login');
     };
 
     return (
-        <nav className="fixed left-0 top-0 h-screen w-64 bg-white border-r border-slate-100 p-6 flex flex-col justify-between">
+        <nav className="fixed left-0 top-0 h-screen w-64 bg-white border-r border-slate-100 p-6 flex flex-col justify-between z-50">
             <div>
                 <div className="flex items-center gap-2 mb-10">
                     <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">J</div>
@@ -19,20 +23,34 @@ const Navbar = () => {
                 </div>
 
                 <div className="space-y-2">
-                    <NavLink
-                        to="/"
-                        className={({ isActive }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive ? 'bg-primary/10 text-primary font-medium' : 'text-slate-500 hover:bg-slate-50'}`}
-                    >
-                        <LayoutDashboard size={20} />
-                        Dashboard
-                    </NavLink>
-                    <NavLink
-                        to="/jobs"
-                        className={({ isActive }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive ? 'bg-primary/10 text-primary font-medium' : 'text-slate-500 hover:bg-slate-50'}`}
-                    >
-                        <ListTodo size={20} />
-                        Applications
-                    </NavLink>
+                    {isAdmin ? (
+                        <>
+                            <NavLink
+                                to="/admin"
+                                className={({ isActive }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive ? 'bg-primary/10 text-primary font-medium' : 'text-slate-500 hover:bg-slate-50'}`}
+                            >
+                                <LayoutDashboard size={20} />
+                                Admin Dashboard
+                            </NavLink>
+                        </>
+                    ) : (
+                        <>
+                            <NavLink
+                                to="/"
+                                className={({ isActive }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive ? 'bg-primary/10 text-primary font-medium' : 'text-slate-500 hover:bg-slate-50'}`}
+                            >
+                                <LayoutDashboard size={20} />
+                                My Applications
+                            </NavLink>
+                            <NavLink
+                                to="/jobs"
+                                className={({ isActive }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive ? 'bg-primary/10 text-primary font-medium' : 'text-slate-500 hover:bg-slate-50'}`}
+                            >
+                                <Briefcase size={20} />
+                                Available Jobs
+                            </NavLink>
+                        </>
+                    )}
                 </div>
             </div>
 
