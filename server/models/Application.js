@@ -10,6 +10,13 @@ const applicationSchema = new mongoose.Schema({
         default: 'APPLIED' 
     },
     rejectedAtStage: { type: String },
+
+    // Resume Screening Fields
+    resumeText:    { type: String },
+    score:         { type: Number, default: 0 },
+    matchedSkills: { type: [String], default: [] },
+    atsScore:      { type: Number, default: 0 },
+    priorityLevel: { type: String, enum: ['Strong', 'Moderate', 'Weak', 'Low'], default: 'Low' },
     interviewDetails: {
         date: { type: Date },
         time: { type: String },

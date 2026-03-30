@@ -35,7 +35,13 @@ function App() {
                 
                 <Route path="/" element={
                     <ProtectedRoute>
-                        <CandidateDashboard />
+                        {(() => {
+                            const userStr = localStorage.getItem('user');
+                            const user = userStr ? JSON.parse(userStr) : null;
+                            return user?.role === 'Admin'
+                                ? <Navigate to="/admin" />
+                                : <CandidateDashboard />;
+                        })()}
                     </ProtectedRoute>
                 } />
 

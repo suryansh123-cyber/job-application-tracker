@@ -9,7 +9,8 @@ const {
     getMyApplications, 
     getJobApplications, 
     updateApplicationStatus, 
-    submitMockTest 
+    submitMockTest,
+    getRankedApplications
 } = require('../controllers/applicationController');
 
 // Multer Config
@@ -40,5 +41,8 @@ router.post('/:id/mock-test', protect, submitMockTest);
 // Admin routes
 router.get('/job/:jobId', protect, isAdmin, getJobApplications);
 router.put('/:id/status', protect, isAdmin, updateApplicationStatus);
+
+// Resume Ranking route (admin only)
+router.get('/ranked/:jobId', protect, isAdmin, getRankedApplications);
 
 module.exports = router;

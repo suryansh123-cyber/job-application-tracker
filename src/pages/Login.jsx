@@ -69,7 +69,7 @@ const Login = () => {
                 <div className="p-8 md:p-12 flex flex-col justify-center">
                     <div className="mb-10 text-center md:text-left">
                         <h2 className="text-3xl font-bold text-slate-800 mb-2">
-                            {isLogin ? 'Welcome Back' : 'Join JobTrack'}
+                            {isLogin ? 'Welcome Back' : 'Join JOBTRACK PRO'}
                         </h2>
                         <p className="text-slate-500">
                             {isLogin ? 'Login to continue your tracking' : 'Create an account to get started'}
